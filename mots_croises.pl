@@ -33,7 +33,41 @@ calculer(L1, [A|T2], R) :-
 	calculer(TR, T2, R).
 
 
+/* afficher la grille */
+afficher([H|T]) :- afficher_ligne(H), afficher(T).
+afficher_ligne([H,H2|T]) :- afficher_cellule(H), write(','), afficher_ligne([H2|T]).
+afficher_ligne([X]) :- afficher_cellule(X), nl.
+afficher_cellule(X) :- var(X), write('_').
+afficher_cellule(X) :- \+var(X), write(X).
 
+
+/* resolution grille 1 */ /* ne marche pas */
+resoudre_gr1(T) :- 
+	ligneA_gr1(T),
+	ligneB_gr1(T),
+	colonneA_gr1(T),
+	colonneB_gr1(T),
+	afficher(T).
+
+ligneA_gr1(T) :-
+	member([A, B], T),
+	addition([A, B], R),
+	cube(R).
+
+ligneB_gr1(T) :-
+	member([[_, _], [A, B]], T),
+	addition([A, B], R),
+	R is 10.
+
+colonneA_gr1(T) :-
+	member([[A, _], [B, _]], T),
+	addition([A, B], R),
+	palindrome(R).
+
+colonneB_gr1(T) :-
+	member([[_, A], [_, B]], T),
+	multiplication([A, B], R),
+	R is 2.
 
 /* A TESTER : RESOLUTION VIA MATH 
 ligneA(T) :-  nombrePrecedent(X, 20). 
