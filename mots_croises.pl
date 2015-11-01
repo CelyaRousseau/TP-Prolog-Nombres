@@ -84,7 +84,7 @@ assembler(T, R) :- atomic_list_concat(T, '', R1), atom_number(R1, R).
 la fonction est_diviseur_premier. 
 	est_diviseur_premier(N, D)
 	Rôle : déterminé si N est un diviseur premier de D. Le diviseur premier d'un nombre est un nombre qui peut diviser le premier mais qui est aussi un nombre premier.
-	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(2, 22) retourne faux 
+	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(4, 22) retourne faux 
 
 les fonctions addition et multiplication ne peuvent pas additionner plus de deux nombres */
 
@@ -113,7 +113,7 @@ resoudre_gr1(T) :-
 ligneA_gr1(T) :-
 	nth1(1, T, [A,B]),
 	between(1, 9, A),
-	between(1, 9, B),
+	between(0, 9, B),
 	assembler([A, B], R),
 	carre(R).
 
@@ -123,7 +123,7 @@ ligneA_gr1(T) :-
 ligneB_gr1(T) :-
 	nth1(2, T, [A,B]),
 	between(1, 9, A),
-	between(1, 9, B),
+	between(0, 9, B),
 	addition([A, B], R),
 	nth0(0, R, R1),
 	R1 is 10.
@@ -135,7 +135,7 @@ colonneA_gr1(T) :-
 	nth1(1, T, [A,_]),
 	nth1(2, T, [B,_]),	
 	between(1, 9, A),
-	between(1, 9, B),
+	between(0, 9, B),
 	assembler([A, B], R),
 	palindrome(R).
 
@@ -146,7 +146,7 @@ colonneB_gr1(T) :-
 	nth1(1, T, [_,A]),
 	nth1(2, T, [_,B]),
 	between(1, 9, A),
-	between(1, 9, B),
+	between(0, 9, B),
 	multiplication([A, B], R),
 	nth0(0, R, R1),
 	R1 is 2.
@@ -176,32 +176,59 @@ resoudre_gr2(T) :-
 	colonneB_gr2(T),
 	colonneC_gr2(T),
 	colonneD_gr2(T),
-	colonneE_gr2(T),
-	afficher(T).
+	colonneE_gr2(T).
 
 /* On récupère les 3 membres de la 1ere ligne,
 	on les multiplie et
 	on vérifie que ça vaut 3 */
 ligneA_gr2(T) :-
-	member([A, B, C], T),
-	multiplication([A, B, C], R),
-	R is 3.
+	nth1(1, T, [A,B,C]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	multiplication([A, B], R),
+	nth0(0, R, R1),
+	multiplication([C, R1], R2),
+	nth0(0, R2, R3),
+	R3 is 3.
 
 /* On récupère les 5 membres de la 2eme ligne,
 	on les additionne et
 	on vérifie que ça vaut 12 */
 ligneB_gr2(T) :-
-	member([_, [A, B, C, D, E]], T),
-	addition([A, B, C, D, E], R),
-	R is 12.
+	nth1(2, T, [A, B, C, D, E]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	addition([A, B], R),
+	nth0(0, R, R1),
+	addition([R1, C], R2),
+	nth0(0, R2, R3),
+	addition([R3, D], R4),
+	nth0(0, R4, R5),
+	addition([R5, E], R6),
+	nth0(0, R6, R7),
+	R7 is 12.
 
 /* On récupère les 5 membres de la 3eme ligne,
 	on récupère les 3 membres de la 4ème colonne
 	on en fait 2 nombres et
 	on vérifie que le premier est un carré du second */
 ligneC_gr2(T) :-
-	member([_, _, [A, B, C, D, E]], T),
-	member([_, [_, _, _, G, _], [_, _, _, H, _], [_, _, _, I, _], _], T),
+	nth1(3, T, [A, B, C, D, E]),
+	nth1(2, T, [_, _, _, G, _]),
+	nth1(3, T, [_, _, _, H, _]),
+	nth1(4, T, [_, _, _, I, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	between(1, 9, G),
+	between(0, 9, H),
+	between(0, 9, I),
 	assembler([A, B, C, D, E], R1),
 	assembler([G, H, I], R2),
 	est_carre(R1, R2).																						
