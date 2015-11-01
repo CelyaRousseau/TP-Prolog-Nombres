@@ -11,6 +11,8 @@ palindrome(X) :- number_chars(X, L), reverse(L, R), compare(=, L, R).
 inverse(N, I) :- N<0, I is (N*(-1)); N>=0, I is N.
 
 cube(N) :- inverse(N, I), P is 1 rdiv 3,  C is round(I**P), I =:= C^3.
+carre(N) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
+est_puissance(N,X) :- inverse(N, I), P is 1 rdiv X,  C is round(I**P), I =:= C^X.
 
 addition([X,Y| T1], T) :- 
 	R is X+Y, append([R],T1,T).
@@ -31,10 +33,6 @@ calculer(L1, [A|T2], R) :-
 		nth0(0, [A], /), division(L1, TR)
 	), 
 	calculer(TR, T2, R).
-
-
-
-
 
 
 /***********************
