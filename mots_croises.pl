@@ -426,8 +426,8 @@ ligneD_gr3(T) :-
 	between(0, 9, H),
 	between(0, 9, I),
 	between(0, 9, J),
-	addition([A, B, C, D, E], R1),		
-	addition([F, G, H, I, J], R2),	
+	additions([A, B, C, D, E], R1),		
+	additions([F, G, H, I, J], R2),	
 	R1 is R2.
 
 /* On récupère les 4 membres de la 5eme ligne,
@@ -435,10 +435,10 @@ ligneD_gr3(T) :-
 	on vérifie que c'est un carré */
 ligneE_gr3(T) :-
 	nth1(5, T, [A, B, C, D, _]),
-	between(1, 9, A),
+	between(0, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	between(0, 9, D),
+	between(1, 9, D),
 	assembler([D, C, B, A], R),
 	carre(R). 																								
 
@@ -513,8 +513,8 @@ colonneD_gr3(T) :-
 	between(0, 9, G),
 	between(0, 9, H),
 	between(0, 9, I),
-	addition([A, B, C, D, E], R1),
-	addition([F, G, H, I], R2),
+	additions([A, B, C, D, E], R1),
+	additions([F, G, H, I], R2),
 	R1 is R2.
 
 /* On récupère les 4 membres de la 5eme colonne,
