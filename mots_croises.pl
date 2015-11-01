@@ -40,6 +40,12 @@ multiplication([X,Y| T1], T) :-
 division([X,Y| T1], T) :- 
 	R is X/Y, append([R],T1,T).
 
+additions([X], R) :- R is X.
+additions([X,Y| T1], R) :- SR is X+Y, append([SR],T1,T), additions(T, R).
+
+multiplications([X], R) :- R is X.
+multiplications([X,Y| T1], R) :- SR is X*Y, append([SR],T1,T), multiplications(T, R).
+
 /* Calcul (sachant que la liste est dans le bonne ordre ) */
 calculer(L1, [], X) :- X is L1.
 calculer(L1, [A|T2], R) :- 
@@ -50,7 +56,6 @@ calculer(L1, [A|T2], R) :-
 		nth0(0, [A], /), division(L1, TR)
 	), 
 	calculer(TR, T2, R).
-
 
 nonpremier(1).
 nonpremier(X) :- Y is X-1, between(2,Y,Z), between(Z,Y,T), X =:= T*Z.
@@ -93,7 +98,6 @@ assembler(T, R) :- atomic_list_concat(T, '', R1), atom_number(R1, R).
 /* TODO 
 
 les fonctions addition et multiplication ne peuvent pas additionner plus de deux nombres */
-
 
 
 /***********************
@@ -361,9 +365,6 @@ colonneE_gr2(T) :-
 	nth0(0, R6, R7),
 	assembler([F, G, H], R8),
 	est_diviseur_premier(R7, R8).																			
-
-
-
 
 
 /***********************
