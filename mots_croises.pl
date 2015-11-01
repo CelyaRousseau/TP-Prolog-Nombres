@@ -25,7 +25,7 @@ carre(N) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
 est_puissance(N,X) :- inverse(N, I), P is 1 rdiv X,  C is round(I**P), I =:= C^X.
 
 /* la fonction est_carre. 
-	est-carre(N, T)
+	est_carre(N, T)
 	Rôle : déterminer si T est le carré de N
 	Par exemple : carre(2, 16) retourne vrai mais carre(3, 16) retourne faux */
 est_carre(N, C) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
@@ -51,6 +51,17 @@ calculer(L1, [A|T2], R) :-
 	), 
 	calculer(TR, T2, R).
 
+
+nonpremier(1).
+nonpremier(X) :- Y is X-1, between(2,Y,Z), between(Z,Y,T), X =:= T*Z.
+premier(X) :- nonpremier(X), !, fail.
+premier(_).
+
+/* la fonction est_diviseur_premier. 
+	est_diviseur_premier(N, D)
+	Rôle : déterminé si N est un diviseur premier de D. Le diviseur premier d'un nombre est un nombre qui peut diviser le premier mais qui est aussi un nombre premier.
+	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(2, 22) retourne faux */
+est_diviseur_premier(N,D) :- premier(N), R is D/N, integer(R).
 
 /***********************
  afficher la grille 
@@ -81,10 +92,7 @@ assembler(T, R) :- atomic_list_concat(T, '', R1), atom_number(R1, R).
 
 /* TODO 
 
-la fonction est_diviseur_premier. 
-	est_diviseur_premier(N, D)
-	Rôle : déterminé si N est un diviseur premier de D. Le diviseur premier d'un nombre est un nombre qui peut diviser le premier mais qui est aussi un nombre premier.
-	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(2, 22) retourne faux 
+
 
 les fonctions addition et multiplication ne peuvent pas additionner plus de deux nombres */
 
@@ -267,7 +275,7 @@ colonneE_gr2(T) :-
 	member([_, _, _, _, [F, G, H]], T),
 	addition([A, B, C, D, E], R1),
 	assembler([F, G, H], R2),
-	est_diviseur_premier(R1, R2).																			/* cette fonction n'existe pas */
+	est_diviseur_premier(R1, R2).																			
 
 
 
@@ -306,7 +314,7 @@ resoudre_gr3(T) :-
 ligneA_gr3(T) :-
 	member([A, B, C, D, E], T),
 	assembler([A, B, C, D, E], R),
-	est_puissance(R, 4).																					/* cette fonction n'existe pas */
+	est_puissance(R, 4).																					
 
 /* On récupère les 5 membres de la 2eme ligne,
 	on en fait un nombre et
@@ -314,7 +322,7 @@ ligneA_gr3(T) :-
 ligneB_gr3(T) :-
 	member([_, [A, B, C, D, E]], T),
 	assembler([A, B, C, D, E], R),
-	est_puissance(R, 2).																					/* cette fonction n'existe pas */
+	est_puissance(R, 2).																					
 
 /* On récupère les 5 membres de la 3eme ligne,
 	on en fait un nombre et
@@ -349,7 +357,7 @@ ligneE_gr3(T) :-
 colonneA_gr3(T) :-
 	member([[A, _, _, _, _], [B, _, _, _, _], [C, _, _, _, _], [D, _, _, _, _], [E, _, _, _, _]], T),
 	assembler([A, B, C, D, E], R),
-	est_puissance(R, 2). 																					/* cette fonction n'existe pas */
+	est_puissance(R, 2). 																					
 
 /* On récupère les 5 membres de la 2eme colonne,
 	on en fait un nombre et
@@ -357,7 +365,7 @@ colonneA_gr3(T) :-
 colonneB_gr3(T) :-
 	member([[_, A, _, _, _], [_, B, _, _, _], [_, C, _, _, _], [_, D, _, _, _], [_, E, _, _, _]], T),
 	assembler([A, B, C, D, E], R),
-	est_puissance(R, 4). 																					/* cette fonction n'existe pas */
+	est_puissance(R, 4). 																					
 
 /* On récupère les 5 membres de la 3eme colonne,
 	on en fait un nombre et
@@ -385,28 +393,3 @@ colonneE_gr3(T) :-
 	member([[_, _, _, _, A], [_, _, _, _, B], [_, _, _, _, C], [_, _, _, _, D], [_, _, _, _, E]], T),
 	assembler([E, D, C, B, A], R),
 	carre(R). 																								
-
-/* A TESTER : RESOLUTION VIA MATH 
-ligneA(T) :-  nombrePrecedent(X, 20). 
-ligneB(T) :-  nombreSuivant(X,909).
-ligneC(T) :-  nombreAyantDizaine(X, 8).
-ligneD(T) :-  between(100, 999, N), palindrome(X).
-colonneA(T) :-  20 + 15.
-colonneB(T) :-  nombrePrecedent(X, 100).
-colonneC(T) :-  100 + 50 + 30 + 5.
-colonneD(T) :-  (50x2) +5 .
-
-*/
-
-/* predicat final 
-resoudre(T) :-
-	ligneA(T),
-	ligneB(T),
-	ligneC(T),
-	ligneD(T),
-	colonneA(T),
-	colonneB(T),
-	colonneC(T),
-	colonneD(T).
-	
-*/
