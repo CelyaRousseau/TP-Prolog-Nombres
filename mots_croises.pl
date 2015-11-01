@@ -229,11 +229,7 @@ ligneC_gr2(T) :-
 	between(0, 9, I),
 	assembler([A, B, C, D, E], R1),
 	assembler([G, H, I], R2),
-	est_carre(R1, R2),
-	write(R1),
-	write(','),
-	write(R2),
-	write('\n').																				
+	est_carre(R1, R2).																				
 
 /* On récupère les 4 membres de la 4eme ligne,
 	on en fait un nombre et
@@ -374,7 +370,7 @@ resoudre_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est une puissance de 4 */
 ligneA_gr3(T) :-
-	member([A, B, C, D, E], T),
+	nth1(1, T, [A, B, C, D, E]),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 4).																					
 
@@ -382,7 +378,7 @@ ligneA_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est une puissance de 2 */
 ligneB_gr3(T) :-
-	member([_, [A, B, C, D, E]], T),
+	nth1(2, T, [A, B, C, D, E]),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 2).																					
 
@@ -390,7 +386,7 @@ ligneB_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un cube */
 ligneC_gr3(T) :-
-	member([_, _, [A, B, C, D, E]], T),
+	nth1(3, T, [A, B, C, D, E]),
 	assembler([A, B, C, D, E], R),
 	cube(R).
 
@@ -399,8 +395,12 @@ ligneC_gr3(T) :-
 	on additionne les membres de chacun et
 	on vérifie que ces deux sommes sont égales */
 ligneD_gr3(T) :-
-	member([_, _, _, [A, B, C, D, E]], T),
-	member([[_, _, _, _, F], [_, _, _, _, G], [_, _, _, _, H], [_, _, _, _, I], [_, _, _, _, J]], T),
+	nth1(4, T, [A, B, C, D, E]),
+	nth1(1, T, [_, _, _, _, F]),
+	nth1(2, T, [_, _, _, _, G]),
+	nth1(3, T, [_, _, _, _, H]),
+	nth1(4, T, [_, _, _, _, I]),
+	nth1(5, T, [_, _, _, _, J]),
 	addition([A, B, C, D, E], R1),		
 	addition([F, G, H, I, J], R2),	
 	R1 is R2.
@@ -409,7 +409,7 @@ ligneD_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un carré */
 ligneE_gr3(T) :-
-	member([_, _, _, _, [A, B, C, D, _]], T),
+	nth1(5, T, [A, B, C, D, _]),
 	assembler([D, C, B, A], R),
 	carre(R). 																								
 
@@ -417,7 +417,11 @@ ligneE_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est une puissance de 2 */
 colonneA_gr3(T) :-
-	member([[A, _, _, _, _], [B, _, _, _, _], [C, _, _, _, _], [D, _, _, _, _], [E, _, _, _, _]], T),
+	nth1(1, T, [A, _, _, _, _]),
+	nth1(2, T, [B, _, _, _, _]),
+	nth1(3, T, [C, _, _, _, _]),
+	nth1(4, T, [D, _, _, _, _]),
+	nth1(5, T, [E, _, _, _, _]),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 2). 																					
 
@@ -425,7 +429,11 @@ colonneA_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est une puissance de 4 */
 colonneB_gr3(T) :-
-	member([[_, A, _, _, _], [_, B, _, _, _], [_, C, _, _, _], [_, D, _, _, _], [_, E, _, _, _]], T),
+	nth1(1, T, [_, A, _, _, _]),
+	nth1(2, T, [_, B, _, _, _]),
+	nth1(3, T, [_, C, _, _, _]),
+	nth1(4, T, [_, D, _, _, _]),
+	nth1(5, T, [_, E, _, _, _]),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 4). 																					
 
@@ -433,7 +441,11 @@ colonneB_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un cube */
 colonneC_gr3(T) :-
-	member([[_, _, A, _, _], [_, _, B, _, _], [_, _, C, _, _], [_, _, D, _, _], [_, _, E, _, _]], T),
+	nth1(1, T, [_, _, A, _, _]),
+	nth1(2, T, [_, _, B, _, _]),
+	nth1(3, T, [_, _, C, _, _]),
+	nth1(4, T, [_, _, D, _, _]),
+	nth1(5, T, [_, _, E, _, _]),
 	assembler([A, B, C, D, E], R),
 	cube(R).
 
@@ -442,8 +454,12 @@ colonneC_gr3(T) :-
 	on additionne les membres de chacun et
 	on vérifie que ces deux sommes sont égales */
 colonneD_gr3(T) :-
-	member([[_, _, _, A, _], [_, _, _, B, _], [_, _, _, C, _], [_, _, _, D, _], [_, _, _, E, _]], T),
-	member([_, _, _, _, [F, G, H, I, _]], T),
+	nth1(1, T, [_, _, _, A, _]),
+	nth1(2, T, [_, _, _, B, _]),
+	nth1(3, T, [_, _, _, C, _]),
+	nth1(4, T, [_, _, _, D, _]),
+	nth1(5, T, [_, _, _, E, _]),
+	nth1(5, T, [F, G, H, I, _]),
 	addition([A, B, C, D, E], R1),
 	addition([F, G, H, I], R2),
 	R1 is R2.
@@ -452,6 +468,10 @@ colonneD_gr3(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un carré */
 colonneE_gr3(T) :-
-	member([[_, _, _, _, A], [_, _, _, _, B], [_, _, _, _, C], [_, _, _, _, D], [_, _, _, _, E]], T),
+	nth1(1, T, [_, _, _, _, A]),
+	nth1(2, T, [_, _, _, _, B]),
+	nth1(3, T, [_, _, _, _, C]),
+	nth1(4, T, [_, _, _, _, D]),
+	nth1(5, T, [_, _, _, _, E]),
 	assembler([E, D, C, B, A], R),
 	carre(R). 																								
