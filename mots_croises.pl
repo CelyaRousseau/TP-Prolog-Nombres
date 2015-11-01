@@ -134,9 +134,8 @@ ligneB_gr1(T) :-
 	nth1(2, T, [A,B]),
 	between(1, 9, A),
 	between(0, 9, B),
-	addition([A, B], R),
-	nth0(0, R, R1),
-	R1 is 10.
+	additions([A, B], R),
+	R is 10.
 
 /* On récupère les 2 membres de la 1ere colonne,
 	on en fait un nombre et
@@ -157,9 +156,8 @@ colonneB_gr1(T) :-
 	nth1(2, T, [_,B]),
 	between(1, 9, A),
 	between(0, 9, B),
-	multiplication([A, B], R),
-	nth0(0, R, R1),
-	R1 is 2.
+	multiplications([A, B], R),
+	R is 2.
 
 
 /***********************
@@ -196,7 +194,7 @@ ligneA_gr2(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	multiplication([A, B, C], R),
+	multiplications([A, B, C], R),
 	R is 3.
 
 /* On récupère les 5 membres de la 2eme ligne,
@@ -209,7 +207,7 @@ ligneB_gr2(T) :-
 	between(0, 9, C),
 	between(0, 9, D),
 	between(0, 9, E),
-	addition([A, B, C, D, E], R),
+	additions([A, B, C, D, E], R),
 	R is 12.
 
 /* On récupère les 5 membres de la 3eme ligne,
@@ -231,7 +229,11 @@ ligneC_gr2(T) :-
 	between(0, 9, I),
 	assembler([A, B, C, D, E], R1),
 	assembler([G, H, I], R2),
-	est_carre(R1, R2).																						
+	est_carre(R1, R2),
+	write(R1),
+	write(','),
+	write(R2),
+	write('\n').																				
 
 /* On récupère les 4 membres de la 4eme ligne,
 	on en fait un nombre et
@@ -253,7 +255,7 @@ ligneE_gr2(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	multiplication([A, B, C], R),
+	multiplications([A, B, C], R),
 	R is 18.
 
 /* On récupère les 3 membres de la 1ere colonne,
@@ -263,7 +265,7 @@ colonneA_gr2(T) :-
 	nth1(1, T, [A, _, _, _, _]),
 	nth1(2, T, [B, _, _, _, _]),
 	nth1(3, T, [C, _, _, _, _]),
-	multiplication([A, B, C], R),
+	multiplications([A, B, C], R),
 	R is 2.
 
 /* On récupère les 5 membres de la 2eme colonne,
@@ -313,7 +315,7 @@ colonneD_gr2(T) :-
 	nth1(2, T, [_, _, _, B, _]),
 	nth1(3, T, [_, _, _, C, _]),
 	nth1(4, T, [_, _, _, D, _]),
-	multiplication([B, C, D], R),
+	multiplications([B, C, D], R),
 	R is 12.
 
 /* On récupère les 5 membres de la 5eme colonne,
@@ -336,9 +338,9 @@ colonneE_gr2(T) :-
 	between(1, 9, F),
 	between(0, 9, G),
 	between(0, 9, H),
-	addition([A, B, C, D, E], R),
-	assembler([F, G, H], R1),
-	est_diviseur_premier(R, R1).																			
+	additions([A, B, C, D, E], R),
+	assembler([F, G, H], R2),
+	est_diviseur_premier(R, R2).																			
 
 
 /***********************
