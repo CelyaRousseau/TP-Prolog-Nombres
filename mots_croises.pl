@@ -109,10 +109,9 @@ resoudre_gr1(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un cube */
 ligneA_gr1(T) :-
-	nth1(N, T, [A,B]),
-	N == 1,
-	\+var(A),
-	\+var(B),
+	nth1(1, T, [A,B]),
+	between(0, 9, A),
+	between(0, 9, B),
 	assembler([A, B], R),
 	cube(R).
 
@@ -120,10 +119,9 @@ ligneA_gr1(T) :-
 	on les additionne et
 	on vérifie que ça vaut 10 */
 ligneB_gr1(T) :-
-	nth1(N, T, [A,B]),
-	N == 2,
-	\+var(A),
-	\+var(B),
+	nth1(2, T, [A,B]),
+	between(0, 9, A),
+	between(0, 9, B),
 	addition([A, B], R),
 	nth0(0, R, R1),
 	R1 is 10.
@@ -132,12 +130,10 @@ ligneB_gr1(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un palindrome */
 colonneA_gr1(T) :-
-	nth1(N, T, [A,_]),
-	nth1(N1, T, [B,_]),
-	N == 1,
-	N1 == 2,	
-	\+var(A),
-	\+var(B),
+	nth1(1, T, [A,_]),
+	nth1(2, T, [B,_]),	
+	between(0, 9, A),
+	between(0, 9, B),
 	assembler([A, B], R),
 	palindrome(R).
 
@@ -145,12 +141,10 @@ colonneA_gr1(T) :-
 	on les multiplie et
 	on vérifie que ça vaut 2 */
 colonneB_gr1(T) :-
-	nth1(N, T, [_,A]),
-	nth1(N1, T, [_,B]),
-	N == 1,
-	N1 == 2,
-	\+var(A),
-	\+var(B),
+	nth1(1, T, [_,A]),
+	nth1(2, T, [_,B]),
+	between(0, 9, A),
+	between(0, 9, B),
 	multiplication([A, B], R),
 	nth0(0, R, R1),
 	R1 is 2.
