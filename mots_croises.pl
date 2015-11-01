@@ -196,11 +196,8 @@ ligneA_gr2(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	multiplication([A, B], R),
-	nth0(0, R, R1),
-	multiplication([C, R1], R2),
-	nth0(0, R2, R3),
-	R3 is 3.
+	multiplication([A, B, C], R),
+	R is 3.
 
 /* On récupère les 5 membres de la 2eme ligne,
 	on les additionne et
@@ -212,15 +209,8 @@ ligneB_gr2(T) :-
 	between(0, 9, C),
 	between(0, 9, D),
 	between(0, 9, E),
-	addition([A, B], R),
-	nth0(0, R, R1),
-	addition([R1, C], R2),
-	nth0(0, R2, R3),
-	addition([R3, D], R4),
-	nth0(0, R4, R5),
-	addition([R5, E], R6),
-	nth0(0, R6, R7),
-	R7 is 12.
+	addition([A, B, C, D, E], R),
+	R is 12.
 
 /* On récupère les 5 membres de la 3eme ligne,
 	on récupère les 3 membres de la 4ème colonne
@@ -263,11 +253,8 @@ ligneE_gr2(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	multiplication([A, B], R),
-	nth0(0, R, R1),
-	multiplication([R1, C], R2),
-	nth0(0, R2, R3),
-	R3 is 18.
+	multiplication([A, B, C], R),
+	R is 18.
 
 /* On récupère les 3 membres de la 1ere colonne,
 	on les multiplie et
@@ -276,11 +263,8 @@ colonneA_gr2(T) :-
 	nth1(1, T, [A, _, _, _, _]),
 	nth1(2, T, [B, _, _, _, _]),
 	nth1(3, T, [C, _, _, _, _]),
-	multiplication([A, B], R),
-	nth0(0, R, R1),
-	multiplication([R1, C], R2),
-	nth0(0, R2, R3),
-	R3 is 2.
+	multiplication([A, B, C], R),
+	R is 2.
 
 /* On récupère les 5 membres de la 2eme colonne,
 	on en fait un nombre et
@@ -329,11 +313,8 @@ colonneD_gr2(T) :-
 	nth1(2, T, [_, _, _, B, _]),
 	nth1(3, T, [_, _, _, C, _]),
 	nth1(4, T, [_, _, _, D, _]),
-	multiplication([B, C], R),
-	nth0(0, R, R1),
-	multiplication([R1, D], R2),
-	nth0(0, R2, R3),
-	R3 is 12.
+	multiplication([B, C, D], R),
+	R is 12.
 
 /* On récupère les 5 membres de la 5eme colonne,
 	on récupère les 3 nombres de la 5ème ligne,
@@ -355,16 +336,9 @@ colonneE_gr2(T) :-
 	between(1, 9, F),
 	between(0, 9, G),
 	between(0, 9, H),
-	addition([A, B], R),
-	nth0(0, R, R1),
-	addition([R1, C], R2),
-	nth0(0, R2, R3),
-	addition([R3, D], R4),
-	nth0(0, R4, R5),
-	addition([R5, E], R6),
-	nth0(0, R6, R7),
-	assembler([F, G, H], R8),
-	est_diviseur_premier(R7, R8).																			
+	addition([A, B, C, D, E], R),
+	assembler([F, G, H], R1),
+	est_diviseur_premier(R, R1).																			
 
 
 /***********************
