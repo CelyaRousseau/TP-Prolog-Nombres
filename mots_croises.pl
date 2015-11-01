@@ -371,6 +371,11 @@ resoudre_gr3(T) :-
 	on vérifie que c'est une puissance de 4 */
 ligneA_gr3(T) :-
 	nth1(1, T, [A, B, C, D, E]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 4).																					
 
@@ -379,6 +384,11 @@ ligneA_gr3(T) :-
 	on vérifie que c'est une puissance de 2 */
 ligneB_gr3(T) :-
 	nth1(2, T, [A, B, C, D, E]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 2).																					
 
@@ -387,6 +397,11 @@ ligneB_gr3(T) :-
 	on vérifie que c'est un cube */
 ligneC_gr3(T) :-
 	nth1(3, T, [A, B, C, D, E]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	cube(R).
 
@@ -401,6 +416,16 @@ ligneD_gr3(T) :-
 	nth1(3, T, [_, _, _, _, H]),
 	nth1(4, T, [_, _, _, _, I]),
 	nth1(5, T, [_, _, _, _, J]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	between(1, 9, F),
+	between(0, 9, G),
+	between(0, 9, H),
+	between(0, 9, I),
+	between(0, 9, J),
 	addition([A, B, C, D, E], R1),		
 	addition([F, G, H, I, J], R2),	
 	R1 is R2.
@@ -410,6 +435,10 @@ ligneD_gr3(T) :-
 	on vérifie que c'est un carré */
 ligneE_gr3(T) :-
 	nth1(5, T, [A, B, C, D, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
 	assembler([D, C, B, A], R),
 	carre(R). 																								
 
@@ -422,6 +451,11 @@ colonneA_gr3(T) :-
 	nth1(3, T, [C, _, _, _, _]),
 	nth1(4, T, [D, _, _, _, _]),
 	nth1(5, T, [E, _, _, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 2). 																					
 
@@ -434,6 +468,11 @@ colonneB_gr3(T) :-
 	nth1(3, T, [_, C, _, _, _]),
 	nth1(4, T, [_, D, _, _, _]),
 	nth1(5, T, [_, E, _, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	est_puissance(R, 4). 																					
 
@@ -446,6 +485,11 @@ colonneC_gr3(T) :-
 	nth1(3, T, [_, _, C, _, _]),
 	nth1(4, T, [_, _, D, _, _]),
 	nth1(5, T, [_, _, E, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	cube(R).
 
@@ -460,6 +504,15 @@ colonneD_gr3(T) :-
 	nth1(4, T, [_, _, _, D, _]),
 	nth1(5, T, [_, _, _, E, _]),
 	nth1(5, T, [F, G, H, I, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	between(1, 9, F),
+	between(0, 9, G),
+	between(0, 9, H),
+	between(0, 9, I),
 	addition([A, B, C, D, E], R1),
 	addition([F, G, H, I], R2),
 	R1 is R2.
@@ -473,5 +526,10 @@ colonneE_gr3(T) :-
 	nth1(3, T, [_, _, _, _, C]),
 	nth1(4, T, [_, _, _, _, D]),
 	nth1(5, T, [_, _, _, _, E]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([E, D, C, B, A], R),
 	carre(R). 																								
