@@ -11,8 +11,25 @@ palindrome(X) :- number_chars(X, L), reverse(L, R), compare(=, L, R).
 inverse(N, I) :- N<0, I is (N*(-1)); N>=0, I is N.
 
 cube(N) :- inverse(N, I), P is 1 rdiv 3,  C is round(I**P), I =:= C^3.
+
+/* la fonction carre. 
+	carre(N)
+	Rôle : déterminer si N est le carré d'un nombre
+	Par exemple : carre(16) retourne vrai  mais carre(15) retourne faux */
 carre(N) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
+
+/* la fonction est_puissance. 
+	est_puissance(T, N)
+	Rôle : détermine si T est une puissance de N.
+	Par exemple : est_puissance(16, 4) retourne vrai mais est_puissance(15, 4) retourne faux */
 est_puissance(N,X) :- inverse(N, I), P is 1 rdiv X,  C is round(I**P), I =:= C^X.
+
+/* la fonction est_carre. 
+	est-carre(N, T)
+	Rôle : déterminer si T est le carré de N
+	Par exemple : carre(2, 16) retourne vrai mais carre(3, 16) retourne faux */
+est_carre(N, C) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
+
 
 addition([X,Y| T1], T) :- 
 	R is X+Y, append([R],T1,T).
@@ -64,32 +81,17 @@ assembler(T, R) :- atomic_list_concat(T, '', R1), atom_number(R1, R).
 
 /* TODO 
 
-la fonction est_carre. 
-	est-carre(N, T)
-	Rôle : déterminer si T est le carré de N
-	Par exemple : carre(2, 16) retourne vrai mais carre(3, 16) retourne faux
-
-la fonction carre. 
-	carre(N)
-	Rôle : déterminer si N est le carré d'un nombre
-	Par exemple : carre(16) retourne vrai  mais carre(15) retourne faux
-
 la fonction est_diviseur_premier. 
 	est_diviseur_premier(N, D)
 	Rôle : déterminé si N est un diviseur premier de D. Le diviseur premier d'un nombre est un nombre qui peut diviser le premier mais qui est aussi un nombre premier.
 	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(2, 22) retourne faux 
-
-la fonction est_puissance. 
-	est_puissance(T, N)
-	Rôle : détermine si T est une puissance de N.
-	Par exemple : est_puissance(16, 4) retourne vrai mais est_puissance(15, 4) retourne faux 
 
 les fonctions addition et multiplication ne peuvent pas additionner plus de deux nombres */
 
 
 
 /***********************
-résolution grille 1 - ne marche pas
+résolution grille 1 - MARCHE !
  **********************/
 
 /* Définition de la grille 1 */
@@ -150,9 +152,6 @@ colonneB_gr1(T) :-
 	R1 is 2.
 
 
-
-
-
 /***********************
 résolution grille 2 - ne marche pas
  **********************/
@@ -205,7 +204,7 @@ ligneC_gr2(T) :-
 	member([_, [_, _, _, G, _], [_, _, _, H, _], [_, _, _, I, _], _], T),
 	assembler([A, B, C, D, E], R1),
 	assembler([G, H, I], R2),
-	est_carre(R1, R2).																						/* cette fonction n'existe pas */
+	est_carre(R1, R2).																						
 
 /* On récupère les 4 membres de la 4eme ligne,
 	on en fait un nombre et
@@ -213,7 +212,7 @@ ligneC_gr2(T) :-
 ligneD_gr2(T) :-
 	member([_, _, _, [_, B, C, D, E]], T),
 	assembler([B, C, D, E], R),
-	carre(R).																								/* cette fonction n'existe pas */
+	carre(R).																								
 
 /* On récupère les 3 membres de la 5eme ligne,
 	on les multiplie et
@@ -248,7 +247,7 @@ colonneC_gr2(T) :-
 	member([_, _, _, _, [F, G, H]], T),
 	assembler([A, B, C, D, E], R1),
 	assembler([F, G, H], R2),
-	est_carre(R1, R2).																						/* cette fonction n'existe pas */
+	est_carre(R1, R2).																						
 
 /* On récupère les 3 membres de la 4eme colonne,
 	on les multiplie et
@@ -342,7 +341,7 @@ ligneD_gr3(T) :-
 ligneE_gr3(T) :-
 	member([_, _, _, _, [A, B, C, D, _]], T),
 	assembler([D, C, B, A], R),
-	carre(R). 																								/* cette fonction n'existe pas */
+	carre(R). 																								
 
 /* On récupère les 5 membres de la 1ere colonne,
 	on en fait un nombre et
@@ -385,7 +384,7 @@ colonneD_gr3(T) :-
 colonneE_gr3(T) :-
 	member([[_, _, _, _, A], [_, _, _, _, B], [_, _, _, _, C], [_, _, _, _, D], [_, _, _, _, E]], T),
 	assembler([E, D, C, B, A], R),
-	carre(R). 																								/* cette fonction n'existe pas */
+	carre(R). 																								
 
 /* A TESTER : RESOLUTION VIA MATH 
 ligneA(T) :-  nombrePrecedent(X, 20). 
