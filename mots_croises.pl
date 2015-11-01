@@ -111,6 +111,8 @@ resoudre_gr1(T) :-
 ligneA_gr1(T) :-
 	nth1(N, T, [A,B]),
 	N == 1,
+	\+var(A),
+	\+var(B),
 	assembler([A, B], R),
 	cube(R).
 
@@ -120,6 +122,8 @@ ligneA_gr1(T) :-
 ligneB_gr1(T) :-
 	nth1(N, T, [A,B]),
 	N == 2,
+	\+var(A),
+	\+var(B),
 	addition([A, B], R),
 	nth0(0, R, R1),
 	R1 is 10.
@@ -132,6 +136,8 @@ colonneA_gr1(T) :-
 	nth1(N1, T, [B,_]),
 	N == 1,
 	N1 == 2,	
+	\+var(A),
+	\+var(B),
 	assembler([A, B], R),
 	palindrome(R).
 
@@ -143,6 +149,8 @@ colonneB_gr1(T) :-
 	nth1(N1, T, [_,B]),
 	N == 1,
 	N1 == 2,
+	\+var(A),
+	\+var(B),
 	multiplication([A, B], R),
 	nth0(0, R, R1),
 	R1 is 2.
