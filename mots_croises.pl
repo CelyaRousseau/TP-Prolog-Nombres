@@ -188,7 +188,7 @@ resoudre_gr2(T) :-
 	on les multiplie et
 	on vérifie que ça vaut 3 */
 ligneA_gr2(T) :-
-	nth1(1, T, [A,B,C]),
+	nth1(1, T, [A,B,C,_,_]),
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
@@ -243,7 +243,11 @@ ligneC_gr2(T) :-
 	on en fait un nombre et
 	on vérifie que c'est un carré */
 ligneD_gr2(T) :-
-	member([_, _, _, [_, B, C, D, E]], T),
+	nth1(4, T, [_, B, C, D, E]),
+	between(1, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([B, C, D, E], R),
 	carre(R).																								
 
@@ -251,23 +255,43 @@ ligneD_gr2(T) :-
 	on les multiplie et
 	on vérifie que ça vaut 18 */
 ligneE_gr2(T) :-
-	member([_, _, _, _, [A, B, C]], T),
-	multiplication([A, B, C], R),
-	R is 18.
+	nth1(5, T, [A, B, C, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	multiplication([A, B], R),
+	nth0(0, R, R1),
+	multiplication([R1, C], R2),
+	nth0(0, R2, R3),
+	R3 is 18.
 
 /* On récupère les 3 membres de la 1ere colonne,
 	on les multiplie et
 	on vérifie que ça vaut 2 */
 colonneA_gr2(T) :-
-	member([[A, _, _, _, _], [B, _, _, _, _], [C, _, _, _, _]], T),
-	multiplication([A, B, C], R),
-	R is 2.
+	nth1(1, T, [A, _, _, _, _]),
+	nth1(2, T, [B, _, _, _, _]),
+	nth1(3, T, [C, _, _, _, _]),
+	multiplication([A, B], R),
+	nth0(0, R, R1),
+	multiplication([R1, C], R2),
+	nth0(0, R2, R3),
+	R3 is 2.
 
 /* On récupère les 5 membres de la 2eme colonne,
 	on en fait un nombre et
 	on vérifie que c'est un palindrome */
 colonneB_gr2(T) :-
-	member([[_, A, _, _, _], [_, B, _, _, _], [_, C, _, _, _], [_, D, _, _, _], [_, E, _, _, _]], T),
+	nth1(1, T, [_, A, _, _, _]),
+	nth1(2, T, [_, B, _, _, _]),
+	nth1(3, T, [_, C, _, _, _]),
+	nth1(4, T, [_, D, _, _, _]),
+	nth1(5, T, [_, E, _, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
 	assembler([A, B, C, D, E], R),
 	palindrome(R).
 
@@ -276,8 +300,20 @@ colonneB_gr2(T) :-
 	on en fait deux nombres et
 	on vérifie que le premier est le carré du second */
 colonneC_gr2(T) :-
-	member([[_, _, A, _, _], [_, _, B, _, _], [_, _, C, _, _], [_, _, D, _, _], [_, _, E, _, _]], T),
-	member([_, _, _, _, [F, G, H]], T),
+	nth1(1, T, [_, _, A, _, _]),
+	nth1(2, T, [_, _, B, _, _]),
+	nth1(3, T, [_, _, C, _, _]),
+	nth1(4, T, [_, _, D, _, _]),
+	nth1(5, T, [_, _, E, _, _]),
+	nth1(5, T, [F, G, H, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	between(1, 9, F),
+	between(0, 9, G),
+	between(0, 9, H),
 	assembler([A, B, C, D, E], R1),
 	assembler([F, G, H], R2),
 	est_carre(R1, R2).																						
@@ -286,9 +322,14 @@ colonneC_gr2(T) :-
 	on les multiplie et
 	on vérifie que ça vaut 12 */
 colonneD_gr2(T) :-
-	member([_, [_, _, _, B, _], [_, _, _, C, _], [_, _, _, D, _], _], T),
-	multiplication([B, C, D], R),
-	R is 12.
+	nth1(2, T, [_, _, _, B, _]),
+	nth1(3, T, [_, _, _, C, _]),
+	nth1(4, T, [_, _, _, D, _]),
+	multiplication([B, C], R),
+	nth0(0, R, R1),
+	multiplication([R1, D], R2),
+	nth0(0, R2, R3),
+	R3 is 12.
 
 /* On récupère les 5 membres de la 5eme colonne,
 	on récupère les 3 nombres de la 5ème ligne,
@@ -296,11 +337,30 @@ colonneD_gr2(T) :-
 	on fait un nombre avec ceux de la ligne et
 	on vérifie que le premier est un diviseur premier du second */
 colonneE_gr2(T) :-
-	member([[_, _, _, _, A], [_, _, _, _, B], [_, _, _, _, C], [_, _, _, _, D], [_, _, _, _, E]], T),
-	member([_, _, _, _, [F, G, H]], T),
-	addition([A, B, C, D, E], R1),
-	assembler([F, G, H], R2),
-	est_diviseur_premier(R1, R2).																			
+	nth1(1, T, [_, _, _, _, A]),
+	nth1(2, T, [_, _, _, _, B]),
+	nth1(3, T, [_, _, _, _, C]),
+	nth1(4, T, [_, _, _, _, D]),
+	nth1(5, T, [_, _, _, _, E]),
+	nth1(5, T, [F, G, H, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	between(0, 9, E),
+	between(1, 9, F),
+	between(0, 9, G),
+	between(0, 9, H),
+	addition([A, B], R),
+	nth0(0, R, R1),
+	addition([R1, C], R2),
+	nth0(0, R2, R3),
+	addition([R3, D], R4),
+	nth0(0, R4, R5),
+	addition([R5, E], R6),
+	nth0(0, R6, R7),
+	assembler([F, G, H], R8),
+	est_diviseur_premier(R7, R8).																			
 
 
 
