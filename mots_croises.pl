@@ -110,18 +110,18 @@ resoudre_gr1(T) :-
 	on vérifie que c'est un cube */
 ligneA_gr1(T) :-
 	nth1(1, T, [A,B]),
-	between(0, 9, A),
-	between(0, 9, B),
+	between(1, 9, A),
+	between(1, 9, B),
 	assembler([A, B], R),
-	cube(R).
+	carre(R).
 
 /* On récupère les 2 membres de la 2eme ligne,
 	on les additionne et
 	on vérifie que ça vaut 10 */
 ligneB_gr1(T) :-
 	nth1(2, T, [A,B]),
-	between(0, 9, A),
-	between(0, 9, B),
+	between(1, 9, A),
+	between(1, 9, B),
 	addition([A, B], R),
 	nth0(0, R, R1),
 	R1 is 10.
@@ -132,8 +132,8 @@ ligneB_gr1(T) :-
 colonneA_gr1(T) :-
 	nth1(1, T, [A,_]),
 	nth1(2, T, [B,_]),	
-	between(0, 9, A),
-	between(0, 9, B),
+	between(1, 9, A),
+	between(1, 9, B),
 	assembler([A, B], R),
 	palindrome(R).
 
@@ -143,8 +143,8 @@ colonneA_gr1(T) :-
 colonneB_gr1(T) :-
 	nth1(1, T, [_,A]),
 	nth1(2, T, [_,B]),
-	between(0, 9, A),
-	between(0, 9, B),
+	between(1, 9, A),
+	between(1, 9, B),
 	multiplication([A, B], R),
 	nth0(0, R, R1),
 	R1 is 2.
