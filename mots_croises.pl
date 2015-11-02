@@ -569,7 +569,6 @@ ligneD_gr3(T) :-
 	nth1(2, T, [_, _, _, _, G]),
 	nth1(3, T, [_, _, _, _, H]),
 	nth1(4, T, [_, _, _, _, I]),
-	nth1(5, T, [_, _, _, _, J]),
 	between(1, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
@@ -579,9 +578,8 @@ ligneD_gr3(T) :-
 	between(0, 9, G),
 	between(0, 9, H),
 	between(0, 9, I),
-	between(0, 9, J),
 	additions([A, B, C, D, E], R1),		
-	additions([F, G, H, I, J], R2),	
+	additions([F, G, H, I], R2),	
 	R1 is R2,
 	write_position(3,0,A),
 	write_position(3,2,B),
@@ -592,7 +590,6 @@ ligneD_gr3(T) :-
 	write_position(1,8,G),
 	write_position(2,8,H),
 	write_position(3,8,I),
-	write_position(4,8,J),
 	write_position(7,0,'Pending...         ').	
 
 /* On récupère les 4 membres de la 5eme ligne,
