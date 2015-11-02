@@ -57,6 +57,17 @@ calculer(L1, [A|T2], R) :-
 	), 
 	calculer(TR, T2, R).
 
+
+def1A('Cube').
+def1B('La somme des chiffres vaut 10').
+def1a('palindrome').
+def1b('la produit des chiffres vaut 2').
+
+definitions_gr1(X) :- def1A(X); def1B(X); def1a(X); def1b(X).
+
+traductions_gr1(L) :- definitions_gr1(X), split_string(X, ' ', '', L).
+
+
 nonpremier(1).
 nonpremier(X) :- Y is X-1, between(2,Y,Z), between(Z,Y,T), X =:= T*Z.
 premier(X) :- nonpremier(X), !, fail.
