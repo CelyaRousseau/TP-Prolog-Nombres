@@ -93,11 +93,11 @@ afficher_ligne([X]) :- afficher_cellule(X), nl.
 afficher_cellule(X) :- var(X), write('_').
 afficher_cellule(X) :- \+var(X), write(X).
 
-cursor(X,Y) :- put(27), put(91),
+cursor(X,Y) :- write('\33\['), /*put(27), put(91),*/
                write(Y),
-               put(59),
+               write(';'), /*put(59),*/
                write(X),
-               put(72).
+               write('H'). /*put(72).*/
 
 
 clear :- write('\33\[2J').
@@ -230,16 +230,16 @@ resoudre_gr2(T) :-
 	gr2(T),
 	afficher_gr2(),
 	write_position(6,0,'Calcul en cours...'),
-	ligneA_gr2(T),
-	ligneB_gr2(T),
-	ligneC_gr2(T),
-	ligneD_gr2(T),
-	ligneE_gr2(T),
 	colonneA_gr2(T),
+	ligneA_gr2(T),
 	colonneB_gr2(T),
+	ligneB_gr2(T),
 	colonneC_gr2(T),
+	ligneC_gr2(T),
 	colonneD_gr2(T),
+	ligneD_gr2(T),
 	colonneE_gr2(T),
+	ligneE_gr2(T),	
 	write_position(6,0,'Resolution terminee '),
 	write_position(7,0,'                    ').
 
@@ -485,16 +485,16 @@ resoudre_gr3(T) :-
 	gr3(T),
 	afficher_gr2(),
 	write_position(6,0,'Calcul en cours...'),
-	ligneA_gr3(T),
-	ligneB_gr3(T),
-	ligneC_gr3(T),
-	ligneD_gr3(T),
-	ligneE_gr3(T),
 	colonneA_gr3(T),
+	ligneE_gr3(T),
+	ligneA_gr3(T),
 	colonneB_gr3(T),
+	ligneB_gr3(T),
 	colonneC_gr3(T),
+	ligneC_gr3(T),
 	colonneD_gr3(T),
-	colonneE_gr3(T),
+	ligneD_gr3(T),
+	colonneE_gr3(T),	
 	write_position(6,0,'Resolution terminee '),
 	write_position(7,0,'                    ').
 
