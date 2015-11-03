@@ -551,3 +551,118 @@ colonneE_gr3(T) :-
 	assembler([D, C, B, A], R),
 	carre(R).
 					
+/***********************
+résolution grille exemple
+ **********************/
+
+/* Définition de la grille exemple */
+grEx([L1, L2, L3, L4]) :-
+	grEx_ligne(L1),
+	grEx_ligne(L2),
+	grEx_ligne(L3),
+	grEx_ligne(L4).
+grEx_ligne([_, _, _, _]).
+
+/* méthode de résolution de la grille exemple */
+resoudre_grEx(T) :- 
+	writeln('Calcul en cours...'),
+	grEx(T),
+	ligneD_grEx(T),
+	colonneC_grEx(T),	
+	ligneB_grEx(T),
+	ligneA_grEx(T),	
+	colonneB_grEx(T),
+	colonneA_grEx(T),		
+	colonneD_grEx(T),
+	ligneC_grEx(T),
+	afficher(T), !.
+
+/* On récupère les 2 membres de la 1ere ligne,
+	on en fait un nombre et
+	on vérifie que c'est le nombre qui précède 20 */
+ligneA_grEx(T) :-
+	nth1(1, T, [A, B, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	assembler([A, B], R),
+	nombrePrecedent(20, R).																					
+
+/* On récupère les 3 membres de la 2eme ligne,
+	on en fait un nombre et
+	on vérifie que c'est le nombre suivant 909 */
+ligneB_grEx(T) :-
+	nth1(2, T, [_, B, C, D]),
+	between(1, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	assembler([B, C, D], R),
+	nombreSuivant(909,R).																			
+
+/* On récupère les 2 membres de la 3eme ligne,
+	on en fait un nombre et
+	on vérifie qu'il possède 8 dizaines */
+ligneC_grEx(T) :-
+	nth1(3, T, [_, _, C, D]),
+	between(1, 9, C),
+	between(0, 9, D),
+	assembler([ C, D], R),
+	nombreAyantDizaine(8,R).	
+
+/* On récupère les 3 membres de la 4eme ligne,
+	on en fait un nombre et
+	on vérifie qu'il possède le même chiffre aux centaines et aux unités (palindrome)*/
+ligneD_grEx(T) :-
+	nth1(4, T, [A, B, C, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	assembler([A, B, C], R),
+	palindrome(R).
+
+/* On récupère les 2 membres de la 1ere colonne,
+	on en fait un nombre et
+	on vérifie que c'est 20+15 */
+colonneA_grEx(T) :-
+	nth1(3, T, [C, _, _, _]),
+	nth1(4, T, [D, _, _, _]),
+	between(1, 9, C),
+	between(0, 9, D),
+	assembler([C, D], R),
+	calculer([20,15],[+],R).																						
+
+/* On récupère les 2 membres de la 2eme colonne,
+	on en fait un nombre et
+	on vérifie que c'est celui qui précède 100 */
+colonneB_grEx(T) :-
+	nth1(1, T, [_, A, _, _]),
+	nth1(2, T, [_, B, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	assembler([A, B], R),
+	nombrePrecedent(100,R).																						
+
+/* On récupère les 3 membres de la 3eme colonne,
+	on en fait un nombre et
+	on vérifie que c'est 100+50+30+5 */
+colonneC_grEx(T) :-
+	nth1(2, T, [_, _, B, _]),
+	nth1(3, T, [_, _, C, _]),
+	nth1(4, T, [_, _, D, _]),
+	between(1, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	assembler([B, C, D], R),
+	calculer([100,50,30,5],[+,+,+],R).	
+
+/* On récupère les 3 membres de la 4eme colonne,
+	on en fait un nombre
+	on vérifie que c'est (50*2)+5 */
+colonneD_grEx(T) :-
+	nth1(1, T, [_, _, _, A]),
+	nth1(2, T, [_, _, _, B]),
+	nth1(3, T, [_, _, _, C]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	assembler([A,B,C],R),
+	calculer([50,2,5],[*,+],R).

@@ -104,6 +104,12 @@ afficher_gr2 :-
 	writeln('_,_,_,_,_'),
 	writeln('_,_,_,_,_').
 
+afficher_grEx :- 
+	writeln('_,_,_,_'),
+	writeln('_,_,_,_'),
+	writeln('_,_,_,_'),
+	writeln('_,_,_,_').
+
 /*assembler(T, R)
 	Rôle : assembler chaque chiffre de chaque case pour ne former qu'un seul chiffre
 	T est une liste à concaténer
@@ -199,7 +205,7 @@ colonneB_gr1(T) :-
 
 
 /***********************
-résolution grille 2 - beaucoup trop lent
+résolution grille 2
  **********************/
 
 /* Définition de la grille 2 */
@@ -454,7 +460,7 @@ colonneE_gr2(T) :-
 
 
 /***********************
-résolution grille 3 - ne marche pas
+résolution grille 3
  **********************/
 
 /* Définition de la grille 3 */
@@ -724,3 +730,162 @@ colonneE_gr3(T) :-
 	write_position(2,8,C),
 	write_position(3,8,D),
 	write_position(7,0,'Pending...         ').	
+
+
+/***********************
+résolution grille exemple
+ **********************/
+
+/* Définition de la grille exemple */
+grEx([L1, L2, L3, L4]) :-
+	grEx_ligne(L1),
+	grEx_ligne(L2),
+	grEx_ligne(L3),
+	grEx_ligne(L4).
+grEx_ligne([_, _, _, _]).
+
+/* méthode de résolution de la grille exemple */
+resoudre_grEx(T) :- 
+	clear,
+	grEx(T),
+	afficher_grEx,
+	write_position(6,0,'Calcul en cours...'),
+	ligneD_grEx(T),
+	colonneC_grEx(T),	
+	
+	ligneB_grEx(T),
+	ligneA_grEx(T),	
+	colonneB_grEx(T),
+	colonneA_grEx(T),		
+	colonneD_grEx(T),
+	
+	ligneC_grEx(T),
+	
+	write_position(6,0,'Resolution terminee '),
+	write_position(7,0,'                    '), !.
+
+/* On récupère les 2 membres de la 1ere ligne,
+	on en fait un nombre et
+	on vérifie que c'est le nombre qui précède 20 */
+ligneA_grEx(T) :-
+	write_position(7,0,'Calcul L A'),
+	nth1(1, T, [A, B, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	assembler([A, B], R),
+	nombrePrecedent(20, R),
+	write_position(0,0,A),
+	write_position(0,2,B),
+	write_position(7,0,'Pending...         ').																					
+
+/* On récupère les 3 membres de la 2eme ligne,
+	on en fait un nombre et
+	on vérifie que c'est le nombre suivant 909 */
+ligneB_grEx(T) :-
+	write_position(7,0,'Calcul L B'),
+	nth1(2, T, [_, B, C, D]),
+	between(1, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	assembler([B, C, D], R),
+	nombreSuivant(909,R),
+	write_position(1,2,B),
+	write_position(1,4,C),
+	write_position(1,6,D),
+	write_position(7,0,'Pending...         ').																			
+
+/* On récupère les 2 membres de la 3eme ligne,
+	on en fait un nombre et
+	on vérifie qu'il possède 8 dizaines */
+ligneC_grEx(T) :-
+	write_position(7,0,'Calcul L C'),
+	nth1(3, T, [_, _, C, D]),
+	between(1, 9, C),
+	between(0, 9, D),
+	assembler([ C, D], R),
+	nombreAyantDizaine(8,R),
+	write_position(2,4,C),
+	write_position(2,6,D),
+	write_position(7,0,'Pending...         ').	
+
+/* On récupère les 3 membres de la 4eme ligne,
+	on en fait un nombre et
+	on vérifie qu'il possède le même chiffre aux centaines et aux unités (palindrome)*/
+ligneD_grEx(T) :-
+	write_position(7,0,'Calcul L D'),
+	nth1(4, T, [A, B, C, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	assembler([A, B, C], R),
+	palindrome(R),
+	write_position(3,0,A),
+	write_position(3,2,B),
+	write_position(3,4,C),
+	write_position(7,0,'Pending...         ').
+
+/* On récupère les 2 membres de la 1ere colonne,
+	on en fait un nombre et
+	on vérifie que c'est 20+15 */
+colonneA_grEx(T) :-
+	write_position(7,0,'Calcul C A'),
+	nth1(3, T, [C, _, _, _]),
+	nth1(4, T, [D, _, _, _]),
+	between(1, 9, C),
+	between(0, 9, D),
+	assembler([C, D], R),
+	calculer([20,15],[+],R),
+	write_position(2,0,C),
+	write_position(3,0,D),
+	write_position(7,0,'Pending...         ').																						
+
+/* On récupère les 2 membres de la 2eme colonne,
+	on en fait un nombre et
+	on vérifie que c'est celui qui précède 100 */
+colonneB_grEx(T) :-
+	write_position(7,0,'Calcul C B'),
+	nth1(1, T, [_, A, _, _]),
+	nth1(2, T, [_, B, _, _]),
+	between(1, 9, A),
+	between(0, 9, B),
+	assembler([A, B], R),
+	nombrePrecedent(100,R),
+	write_position(0,2,A),
+	write_position(1,2,B),
+	write_position(7,0,'Pending...         ').																						
+
+/* On récupère les 3 membres de la 3eme colonne,
+	on en fait un nombre et
+	on vérifie que c'est 100+50+30+5 */
+colonneC_grEx(T) :-
+	write_position(7,0,'Calcul C C'),
+	nth1(2, T, [_, _, B, _]),
+	nth1(3, T, [_, _, C, _]),
+	nth1(4, T, [_, _, D, _]),
+	between(1, 9, B),
+	between(0, 9, C),
+	between(0, 9, D),
+	assembler([B, C, D], R),
+	calculer([100,50,30,5],[+,+,+],R),
+	write_position(1,4,B),
+	write_position(2,4,C),
+	write_position(3,4,D),
+	write_position(7,0,'Pending...         ').	
+
+/* On récupère les 3 membres de la 4eme colonne,
+	on en fait un nombre
+	on vérifie que c'est (50*2)+5 */
+colonneD_grEx(T) :-
+	write_position(7,0,'Calcul C D'),
+	nth1(1, T, [_, _, _, A]),
+	nth1(2, T, [_, _, _, B]),
+	nth1(3, T, [_, _, _, C]),
+	between(1, 9, A),
+	between(0, 9, B),
+	between(0, 9, C),
+	assembler([A,B,C],R),
+	calculer([50,2,5],[*,+],R),
+	write_position(0,6,A),
+	write_position(1,6,B),
+	write_position(2,6,C),
+	write_position(7,0,'Pending...         ').
