@@ -8,27 +8,25 @@ nombreAyantDizaine(X, N) :- Low is X*10, High is X*10+9, between(Low, High, N).
 
 palindrome(X) :- number_chars(X, L), reverse(L, R), compare(=, L, R).
 
-inverse(N, I) :- N<0, I is (N*(-1)); N>=0, I is N.
-
-cube(N) :- inverse(N, I), P is 1 rdiv 3,  C is round(I**P), I =:= C^3.
+cube(N) :- P is 1 rdiv 3,  C is round(N**P), N =:= C^3.
 
 /* la fonction carre. 
 	carre(N)
 	Rôle : déterminer si N est le carré d'un nombre
 	Par exemple : carre(16) retourne vrai  mais carre(15) retourne faux */
-carre(N) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
+carre(N) :- P is 1 rdiv 2,  C is round(N**P), N =:= C^2.
 
 /* la fonction est_puissance. 
 	est_puissance(T, N)
 	Rôle : détermine si T est une puissance de N.
 	Par exemple : est_puissance(16, 4) retourne vrai mais est_puissance(15, 4) retourne faux */
-est_puissance(N,X) :- inverse(N, I), P is 1 rdiv X,  C is round(I**P), I =:= C^X.
+est_puissance(Y,X) :- between(0,16,N),  Y is X^N.
 
 /* la fonction est_carre. 
 	est_carre(N, T)
 	Rôle : déterminer si T est le carré de N
 	Par exemple : carre(2, 16) retourne vrai mais carre(3, 16) retourne faux */
-est_carre(N, C) :- inverse(N, I), P is 1 rdiv 2,  C is round(I**P), I =:= C^2.
+est_carre(N, C) :- P is 1 rdiv 2,  C is round(N**P), N =:= C^2.
 
 
 addition([X,Y| T1], T) :- 
@@ -485,16 +483,16 @@ resoudre_gr3(T) :-
 	gr3(T),
 	afficher_gr2(),
 	write_position(6,0,'Calcul en cours...'),
-	colonneA_gr3(T),
+	ligneC_gr3(T),
+	colonneC_gr3(T),
+	colonneE_gr3(T),
 	ligneE_gr3(T),
 	ligneA_gr3(T),
-	colonneB_gr3(T),
+	colonneA_gr3(T),
 	ligneB_gr3(T),
-	colonneC_gr3(T),
-	ligneC_gr3(T),
-	colonneD_gr3(T),
+	colonneB_gr3(T),
 	ligneD_gr3(T),
-	colonneE_gr3(T),	
+	colonneD_gr3(T),	
 	write_position(6,0,'Resolution terminee '),
 	write_position(7,0,'                    ').
 
@@ -726,10 +724,10 @@ colonneE_gr3(T) :-
 	nth1(2, T, [_, _, _, _, B]),
 	nth1(3, T, [_, _, _, _, C]),
 	nth1(4, T, [_, _, _, _, D]),
-	between(1, 9, A),
+	between(0, 9, A),
 	between(0, 9, B),
 	between(0, 9, C),
-	between(0, 9, D),
+	between(1, 9, D),
 	assembler([D, C, B, A], R),
 	carre(R),
 	write_position(0,8,A),
