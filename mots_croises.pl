@@ -73,9 +73,9 @@ multiplications([X], R) :- R is X.
 multiplications([X,Y| T1], R) :- SR is X*Y, append([SR],T1,T), multiplications(T, R).
 
 /* Calcul (sachant que la liste est dans le bonne ordre ) */
-/* la fonction multiplications. 
-	multiplications(L1, R)
-	Rôle : déterminer le resultat R de la multiplication des termes d'une liste L1
+/* la fonction calculer. 
+	calculer(L1, L2, R)
+	Rôle : déterminer le resultat R du calcul des termes d'une liste L1
 	Par exemple : calculer([1,2,3,4],[+,*,-], R) retournera R = 5 car (1+2)*3-4 = 24 
 	Attention : Cette fonction ne gère pas la priorisation des calculs avec parenthèse, il calcule simplement de gauche à droite, 
 	les termes doivent donc être triés préalablement si besoin */
@@ -768,7 +768,6 @@ colonneE_gr3(T) :-
 
 
 
-
 /* Définition de la grille exemple */
 grEx([L1, L2, L3, L4]) :-
 	grEx_ligne(L1),
@@ -785,15 +784,12 @@ resoudre_grEx(T) :-
 	write_position(6,0,'Calcul en cours...'),
 	ligneD_grEx(T),
 	colonneC_grEx(T),	
-	
 	ligneB_grEx(T),
 	ligneA_grEx(T),	
 	colonneB_grEx(T),
 	colonneA_grEx(T),		
-	colonneD_grEx(T),
-	
+	colonneD_grEx(T),	
 	ligneC_grEx(T),
-	
 	write_position(6,0,'Resolution terminee '),
 	write_position(7,0,'                    '), !.
 

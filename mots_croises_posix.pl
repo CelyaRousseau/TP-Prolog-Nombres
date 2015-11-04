@@ -73,10 +73,9 @@ additions([X,Y| T1], R) :- SR is X+Y, append([SR],T1,T), additions(T, R).
 multiplications([X], R) :- R is X.
 multiplications([X,Y| T1], R) :- SR is X*Y, append([SR],T1,T), multiplications(T, R).
 
-/* Calcul (sachant que la liste est dans le bonne ordre ) */
-/* la fonction multiplications. 
-	multiplications(L1, R)
-	Rôle : déterminer le resultat R de la multiplication des termes d'une liste L1
+/* la fonction calculer. 
+	calculer(L1, L2, R)
+	Rôle : déterminer le resultat R du calcul des termes d'une liste L1
 	Par exemple : calculer([1,2,3,4],[+,*,-], R) retournera R = 5 car (1+2)*3-4 = 24 
 	Attention : Cette fonction ne gère pas la priorisation des calculs avec parenthèse, il calcule simplement de gauche à droite, 
 	les termes doivent donc être triés préalablement si besoin */
