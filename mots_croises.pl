@@ -114,6 +114,7 @@ est_diviseur_premier(N,D) :- premier(N), R is D/N, integer(R).
 /*--------------------- AFFICHER LA GRILLE -------------------------*/
 
 
+/* Permet de positionner le curseur aux positions X et Y données */
 cursor(X,Y) :- write('\33\['), /*put(29), put(91),*/
                write(Y),
                write(';'), /*put(59),*/
@@ -121,16 +122,20 @@ cursor(X,Y) :- write('\33\['), /*put(29), put(91),*/
                write('H'). /*put(72).*/
 
 
+/* Permet de nettoyer l'écran */
 clear :- write('\33\[2J').
 
+/* Permet d'écrire du texte à une position donnée */
 write_position(X, Y, V) :-
 	cursor(X,Y),
 	write(V).
 
+/* affiche la grille 1 vide */
 afficher_gr1 :-
 writeln('_,_'),
 writeln('_,_').
 
+/* affiche la grille 2 ou 3 vide */
 afficher_gr2 :- 
 	writeln('_,_,_,_,_'),
 	writeln('_,_,_,_,_'),
@@ -138,6 +143,7 @@ afficher_gr2 :-
 	writeln('_,_,_,_,_'),
 	writeln('_,_,_,_,_').
 
+/* affiche la grille d'exemple vide */
 afficher_grEx :- 
 	writeln('_,_,_,_'),
 	writeln('_,_,_,_'),
