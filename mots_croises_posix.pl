@@ -1,50 +1,85 @@
 
-/** REGLES MATHEMATIQUES **/
-nombrePrecedent(X, P) :- P is X - 1.
+/*---------------------- REGLES MATHEMATIQUES ------------------------*/
 
-nombreSuivant(X, S) :- S is X + 1.
+/* la fonction nombre_precedent : 
+	nombre_precedent(X, P)
+	Rôle : déterminer si P est le nombre précédant X / peut également calculer le nombre précédent de X
+	Exemple : nombre_precedent(17,16) retourne vrai, nombre_precedent(10,20) retourne faux, nombre_precedent(20,X) retourne 19 */
+nombre_precedent(X, P) :- P is X - 1.
 
-nombreAyantDizaine(X, N) :- Low is X*10, High is X*10+9, between(Low, High, N).
+/* la fonction nombre_suivant :
+	nombre_suivant(X, S)
+	Rôle : déterminer si S est le nombre suivant X / peut également calculer le nombre suivant de X
+	Exemple : nombre_suivant(16,17) retourne vrai, nombre_suivant(10,20) retourne faux, nombre_suivant(20,X) retourne 21 */
+nombre_suivant(X, S) :- S is X + 1.
 
+/* la fonction nombre_ayant_dizaine : 
+	nombre_ayant_dizaine(X, N)
+	Rôle : déterminer si N est compris dans la dizaine spécifiée / peut également donner les nombre suivant ayant pour dizaine X
+	Exemple : nombre_ayant_dizaine(8,83) retourne vrai, nombre_ayant_dizaine(8,20) retourne faux, nombre_ayant_dizaine(8,X) retourne 80, 81, 82, 83, 84, 85, 86, 87, 88, 89. */
+nombre_ayant_dizaine(X, N) :- Low is X*10, High is X*10+9, between(Low, High, N).
+
+/* la fonction palindrome : 
+	palindrome(X)
+	Rôle : déterminer si X est un palindrome
+	Exemple : palindrome(12321) retournera vrai, palindrome(125) retournera faux */
 palindrome(X) :- number_chars(X, L), reverse(L, R), compare(=, L, R).
 
+/* la fonction cube :
+	cube(N)
+	Rôle : déterminer si N est un cube
+	Exemple : cube(9) retournera vrai, cube(98) retournera faux */
 cube(N) :- P is 1 rdiv 3,  C is round(N**P), N =:= C^3.
 
-/* la fonction carre. 
+/* la fonction carre :
 	carre(N)
-	Rôle : déterminer si N est le carré d'un nombre
-	Par exemple : carre(16) retourne vrai  mais carre(15) retourne faux */
+	Rôle : déterminer si N est un carré
+	Par exemple : carre(16) retourne vrai  mais carre(15) retournera faux */
 carre(N) :- P is 1 rdiv 2,  C is round(N**P), N =:= C^2.
 
-/* la fonction est_puissance. 
-	est_puissance(T, N)
-	Rôle : détermine si T est une puissance de N.
+/* la fonction est_puissance : 
+	est_puissance(Y, X)
+	Rôle : détermine si Y est une puissance de X.
 	Par exemple : est_puissance(16, 4) retourne vrai mais est_puissance(15, 4) retourne faux */
 est_puissance(Y,X) :- between(0,16,N),  Y is X^N.
 
-/* la fonction est_carre. 
-	est_carre(N, T)
-	Rôle : déterminer si T est le carré de N
-	Par exemple : carre(2, 16) retourne vrai mais carre(3, 16) retourne faux */
+/* la fonction est_carre : 
+	est_carre(N, C)
+	Rôle : déterminer si N est le carré de C
+	Par exemple : est_carre(16, 4) retourne vrai mais est_carre(3, 16) retourne faux */
 est_carre(N, C) :- P is 1 rdiv 2,  C is round(N**P), N =:= C^2.
 
+/* les fonctions suivantes : 
+	-> addition(L1,L2), soustraction(L1,L2), multiplication(L1,L2), division(L1,L2) sont des sous-fonctions 
+	de la fonction Calculer(L1,L2,X) présenté ci-dessous. 
+	Rôle : effectuer un calcul entre les deux premier termes d'une liste et retourné la liste en remplaçant les deux premiers termes par le résultat.
+	Par exemple : addition([1,2,3], T) retournera T = [3,3] */
+addition([X,Y| T1], T) :- R is X+Y, append([R],T1,T).
+soustraction([X,Y| T1], T) :- R is X-Y, append([R],T1,T).
+multiplication([X,Y| T1], T) :- R is X*Y, append([R],T1,T).
+division([X,Y| T1], T) :- R is X/Y, append([R],T1,T).
 
-addition([X,Y| T1], T) :- 
-	R is X+Y, append([R],T1,T).
-soustraction([X,Y| T1], T) :- 
-	R is X-Y, append([R],T1,T).
-multiplication([X,Y| T1], T) :- 
-	R is X*Y, append([R],T1,T).
-division([X,Y| T1], T) :- 
-	R is X/Y, append([R],T1,T).
-
+/* la fonction additions. 
+	additions(L1, R)
+	Rôle : déterminer le resultat R de l'addition des termes d'une liste L1
+	Par exemple : additions([1,2,3,4], R) retournera R = 10 car 1+2+3+4 = 10 */
 additions([X], R) :- R is X.
 additions([X,Y| T1], R) :- SR is X+Y, append([SR],T1,T), additions(T, R).
 
+/* la fonction multiplications. 
+	multiplications(L1, R)
+	Rôle : déterminer le resultat R de la multiplication des termes d'une liste L1
+	Par exemple : multiplications([1,2,3,4], R) retournera R = 24 car 1*2*3*4 = 24 */
 multiplications([X], R) :- R is X.
 multiplications([X,Y| T1], R) :- SR is X*Y, append([SR],T1,T), multiplications(T, R).
 
 /* Calcul (sachant que la liste est dans le bonne ordre ) */
+/* la fonction multiplications. 
+	multiplications(L1, R)
+	Rôle : déterminer le resultat R de la multiplication des termes d'une liste L1
+	Par exemple : calculer([1,2,3,4],[+,*,-], R) retournera R = 5 car (1+2)*3-4 = 24 
+	Attention : Cette fonction ne gère pas la priorisation des calculs avec parenthèse, il calcule simplement de gauche à droite, 
+	les termes doivent donc être triés préalablement si besoin */
 calculer(L1, [], X) :- X is L1.
 calculer(L1, [A|T2], R) :- 
 	(
@@ -65,10 +100,18 @@ definitions_gr1(X) :- def1A(X); def1B(X); def1a(X); def1b(X).
 
 traductions_gr1(L) :- definitions_gr1(X), split_string(X, ' ', '', L).
 
+/* la fonction non_premier. 
+	non_premier(X)
+	Rôle : déterminer si X est un nombre non premier.
+	Par exemple : non_premier(25) retournera vrai, non_premier(3) retournera faux */
+non_premier(1).
+non_premier(X) :- Y is X-1, between(2,Y,Z), between(Z,Y,T), X =:= T*Z.
 
-nonpremier(1).
-nonpremier(X) :- Y is X-1, between(2,Y,Z), between(Z,Y,T), X =:= T*Z.
-premier(X) :- nonpremier(X), !, fail.
+/* la fonction premier. 
+	premier(X)
+	Rôle : A l'inverse de non_premier(X), premier(X) détermine si X est un nombre premier.
+	Par exemple : premier(25) retournera faux, premier(3) retournera vrai */
+premier(X) :- non_premier(X), !, fail.
 premier(_).
 
 /* la fonction est_diviseur_premier. 
@@ -77,40 +120,38 @@ premier(_).
 	Par exemple : est_diviseur_premier(11, 22) retourne vrai mais est_diviseur_premier(2, 22) retourne faux */
 est_diviseur_premier(N,D) :- premier(N), R is D/N, integer(R).
 
-/***********************
- afficher la grille 
- **********************/
+
+
+/*--------------------- AFFICHER LA GRILLE -------------------------*/
+
+
 
 /* afficher la grille ligne par ligne en récursif */
 afficher([]) :- !.
 afficher([H|T]) :- afficher_ligne(H), afficher(T).
+
 /* affiche une ligne cellule par cellule et séparer par une virgule en récursif */
 afficher_ligne([H,H2|T]) :- afficher_cellule(H), write(','), afficher_ligne([H2|T]).
+
 /* si la ligne ne contient qu'une valeur, on affiche juste la valeur d'une cellule */
 afficher_ligne([X]) :- afficher_cellule(X), nl.
+
 /* afficher une cellule. Si la valeur est null, on affiche un underscore sinon on affiche la valeur */
 afficher_cellule(X) :- var(X), write('_').
 afficher_cellule(X) :- \+var(X), write(X).
 
-/*assembler(T, R)
+/* assembler(T, R)
 	Rôle : assembler chaque chiffre de chaque case pour ne former qu'un seul chiffre
 	T est une liste à concaténer
 	R est le résultat des éléments de la liste concaténés
-
-	Par exemple : assembler([1,2], R) retourne R=12 
-*/
+	Par exemple : assembler([1,2], R) retourne R=12 */
 assembler(T, R) :- atomic_list_concat(T, '', R1), atom_number(R1, R).
 
 
 
-/* TODO 
-
-les fonctions addition et multiplication ne peuvent pas additionner plus de deux nombres */
+/*--------------------- RESOLUTION GRILLE 1 ------------------------*/
 
 
-/***********************
-résolution grille 1 - MARCHE !
- **********************/
 
 /* Définition de la grille 1 */
 gr1([L1, L2]) :-
@@ -170,9 +211,11 @@ colonneB_gr1(T) :-
 	multiplications([A, B], R),
 	R is 2.	
 
-/***********************
-résolution grille 2 - beaucoup trop lent
- **********************/
+
+
+/*--------------------- RESOLUTION GRILLE 2 ------------------------*/
+
+
 
 /* Définition de la grille 2 */
 gr2([L1, L2, L3, L4, L5]) :-
@@ -356,11 +399,12 @@ colonneE_gr2(T) :-
 	additions([A, B, C, D, E], R),
 	assembler([F, G, H], R2),
 	est_diviseur_premier(R, R2).
-									
+					
 
-/***********************
-résolution grille 3 - ne marche pas
- **********************/
+
+/*--------------------- RESOLUTION GRILLE 3 ------------------------*/
+
+
 
 /* Définition de la grille 3 */
 gr3([L1, L2, L3, L4, L5]) :-
@@ -550,10 +594,12 @@ colonneE_gr3(T) :-
 	between(1, 9, D),
 	assembler([D, C, B, A], R),
 	carre(R).
-					
-/***********************
-résolution grille exemple
- **********************/
+
+
+
+/*--------------------- RESOLUTION GRILLE EXEMPLE ------------------------*/
+
+
 
 /* Définition de la grille exemple */
 grEx([L1, L2, L3, L4]) :-
@@ -585,7 +631,7 @@ ligneA_grEx(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	assembler([A, B], R),
-	nombrePrecedent(20, R).																					
+	nombre_precedent(20, R).																					
 
 /* On récupère les 3 membres de la 2eme ligne,
 	on en fait un nombre et
@@ -596,7 +642,7 @@ ligneB_grEx(T) :-
 	between(0, 9, C),
 	between(0, 9, D),
 	assembler([B, C, D], R),
-	nombreSuivant(909,R).																			
+	nombre_suivant(909,R).																			
 
 /* On récupère les 2 membres de la 3eme ligne,
 	on en fait un nombre et
@@ -606,7 +652,7 @@ ligneC_grEx(T) :-
 	between(1, 9, C),
 	between(0, 9, D),
 	assembler([ C, D], R),
-	nombreAyantDizaine(8,R).	
+	nombre_ayant_dizaine(8,R).	
 
 /* On récupère les 3 membres de la 4eme ligne,
 	on en fait un nombre et
@@ -639,7 +685,7 @@ colonneB_grEx(T) :-
 	between(1, 9, A),
 	between(0, 9, B),
 	assembler([A, B], R),
-	nombrePrecedent(100,R).																						
+	nombre_precedent(100,R).																						
 
 /* On récupère les 3 membres de la 3eme colonne,
 	on en fait un nombre et
